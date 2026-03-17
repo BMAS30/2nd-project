@@ -1,7 +1,7 @@
-Input_Data:
-File1: "../Data/raw/df_final_demo.txt"
+input_data:
+  file1: "../Data/raw/df_final_demo.txt"
 
 
 
-Output_Data:
-File1: "../Data/clean/demo_df_cleaned.csv"
+output_data:
+  file1: "../Data/clean/demo_df_cleaned.csv"
