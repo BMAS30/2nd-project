@@ -1,8 +1,12 @@
 input_data:
   file1: "../Data/raw/df_final_demo.txt"
   file2: "../Data/raw/df_final_experiment_clients.txt."
+  
 
 
 output_data:
   file1: "../Data/clean/demo_df_cleaned.csv"
   file2: "../Data/clean/df_final_experiment_clients_clean.csv"
+  file3: "../Data/clean/control_group_df.csv"
+  file4: "../Data/clean/test_group_df.csv"
+  file5: "../Data/clean/joined_demo_expi_df.csv"
