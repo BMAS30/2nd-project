@@ -1,0 +1,15 @@
+Tenure Group,Group,Completion Rate
+0-5,Test,69.4
+6-10,Test,69.2
+11-15,Test,66.9
+16-20,Test,66.8
+21-25,Test,68.0
+26-30,Test,63.1
+31+,Test,65.1
+0-5,Control,65.4
+6-10,Control,65.3
+11-15,Control,64.0
+16-20,Control,63.4
+21-25,Control,64.5
+26-30,Control,62.6
+31+,Control,66.8

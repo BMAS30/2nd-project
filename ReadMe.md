@@ -96,9 +96,11 @@ the Control group.
     | Test (New UI) | 68.0% |
     | Difference | +3.4% |
     
+
 - The second H₀: Completion Rate with a Cost-Effectiveness Threshold we fail to reject.
 H₀: The new process design does not achieve the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is less than 5%, meaning the new design is not cost-effective.
 The new UI performs better but only by 3.4%.
+
 
 - The last H₀: Completion Rate according to tenure years we have to reject.
 H₀: The completion rate of the new process does not differ significantly from the old process across tenure groups
@@ -130,12 +132,13 @@ We are confident that addressing these issues could push completion rates above 
 For this project we used:
 - ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
 - ![Python](https://img.shields.io/badge/Python-3.13-blue)
-- Pandas
-- Numpy
-- Matplotlib
-- Seaborn
-- Scipy
-- Tableau 
+- ![Pandas](https://img.shields.io/badge/Pandas-3.0.1-150458?logo=pandas)
+- ![NumPy](https://img.shields.io/badge/NumPy-2.4.3-013243?logo=numpy)
+- ![Tableau](https://img.shields.io/badge/Tableau-blue?logo=tableau)
+- ![Matplotlib](https://img.shields.io/badge/Matplotlib-3.10.8-0orange)
+- ![Seaborn](https://img.shields.io/badge/Seaborn-0.13.2-orange)
+- ![Scipy](https://img.shields.io/badge/Scipy-1.17.1-red)
+ 
 
 ## URL to Slides
 
@@ -191,12 +194,13 @@ git clone https://github.com/BMAS30/2nd-project
 ```
 
 2. Install UV
+
 if you're a MacOS/Linux user:
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-    if you're a Windows user open an Anaconda Powershell Prompt and enter:
+if you're a Windows user open an Anaconda Powershell Prompt and enter:
 ```
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
@@ -212,12 +216,12 @@ if you're a MacOS/Linux user type:
 source ./venv/bin/activate
 ```
 
-    if you're a Windows user enter in Anaconda Powershell Prompt:
+if you're a Windows user enter in Anaconda Powershell Prompt:
 ```
 .\.venv\Scripts\activate
 ```
 
-5. Install dependencies:
+1. Install dependencies:
 ```
 uv pip install -r requirements.txt
 ```
