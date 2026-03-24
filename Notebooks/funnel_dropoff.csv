@@ -1,0 +1,9 @@
+step,group,dropoff_pct
+After Start,test,9.2
+After Start,control,14.04
+After Step 1,test,8.16
+After Step 1,control,7.22
+After Step 2,test,6.34
+After Step 2,control,6.78
+After Step 3,test,11.67
+After Step 3,control,12.02

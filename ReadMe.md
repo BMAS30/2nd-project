@@ -76,6 +76,9 @@ H₁: The completion rate of the new process differs significantly from the old 
 
 ## Data Cleaning & Obstacles
 
+The dataset was relatively clean and therefore did not present any significant obstacles. We removed rows that contained only null values, with the exception of the client_id, and merged the datasets df_final_web_data_pt_1 and df_final_web_data_pt_2.
+
+The primary challenges we encountered were related to alignment, communication, and mutual understanding within the team. Although communication was ongoing, some misunderstandings arose, and different approaches were taken to address errors encountered during the process. While this was not a major issue, it was ultimately insightful to observe that the overall error rate was relatively low. However, it did require us to realign at a later stage of the project.
 
 ## Methodology
 
