@@ -1,11 +1,11 @@
-transition,median_gap_min,pct_under_5_min,session_type
-confirm → start,2093.0,25.0,mostly new session
-confirm → step 1,0.7,92.8,mostly same session
-confirm → step 2,1.4,100.0,mostly same session
-confirm → step 3,0.0,97.5,mostly same session
-step 1 → start,1.7,68.4,mixed
-step 2 → start,2.3,61.7,mixed
-step 2 → step 1,0.1,96.6,mostly same session
-step 3 → start,4.4,51.5,mixed
-step 3 → step 1,1.0,90.3,mostly same session
-step 3 → step 2,0.6,93.9,mostly same session
+transition,median_gap_min,pct_under_5_min,from_step
+confirm → start,2093.0,25.0,from confirm
+confirm → step 1,0.7,92.8,from confirm
+confirm → step 2,1.4,100.0,from confirm
+confirm → step 3,0.0,97.5,from confirm
+step 1 → start,1.7,68.4,from step 1
+step 2 → start,2.3,61.7,from step 2
+step 2 → step 1,0.1,96.6,from step 2
+step 3 → start,4.4,51.5,from step 3
+step 3 → step 1,1.0,90.3,from step 3
+step 3 → step 2,0.6,93.9,from step 3
