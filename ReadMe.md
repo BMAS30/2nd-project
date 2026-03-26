@@ -56,23 +56,23 @@ Vanguard is one of the world's largest investment management companies, founded 
 Does the new Vanguard UI design drive higher process completion rates, and if so, does the improvement justify the investment?
 
 ## Hypotheses 
-1: Completion Rate
-H₀: The new design does not increase the completion rate compared to the old design. 
+**1: Completion Rate**
+**H₀:** The new design does not increase the completion rate compared to the old design. 
 The completion rate in the Test group is less than or equal to the completion rate in 
 the Control group.
 
-H₁: The new design increases the completion rate compared to the old design. 
+**H₁:** The new design increases the completion rate compared to the old design. 
 The completion rate in the Test group is higher than the completion rate in the Control group. 
 
-2: Completion Rate with a Cost-Effectiveness Threshold
-H₀: The new process design does not achieve the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is less than 5%, meaning the new design is not cost-effective
+**2: Completion Rate with a Cost-Effectiveness Threshold**
+**H₀:** The new process design does not achieve the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is less than 5%, meaning the new design is not cost-effective
 
-H₁: The new process design achieves or exceeds the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is 5% or more, meaning the new design is cost-effective and its benefits outweigh the associated costs of design, development, testing, staff training and potential user disruptions.
+**H₁:** The new process design achieves or exceeds the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is 5% or more, meaning the new design is cost-effective and its benefits outweigh the associated costs of design, development, testing, staff training and potential user disruptions.
 
-3: Completion Rate according to tenure years
-H₀: The completion rate of the new process does not differ significantly from the old process across tenure groups
+**3: Completion Rate according to tenure years**
+**H₀:** The completion rate of the new process does not differ significantly from the old process across tenure groups
 
-H₁: The completion rate of the new process differs significantly from the old process across at least one tenure group
+**H₁:** The completion rate of the new process differs significantly from the old process across at least one tenure group
 
 ## Data Cleaning & Obstacles
 
@@ -87,7 +87,7 @@ To compare completion rates between the test and control groups, a Chi-square te
 ## Results
 
 The results show:
-- We have to reject the first H₀: Completion Rate.
+- We have to **reject** the first H₀: Completion Rate.
 H₀: The new design does not increase the completion rate compared to the old design. 
 The completion rate in the Test group is less than or equal to the completion rate in 
 the Control group.
@@ -95,28 +95,32 @@ the Control group.
 
     | | Completion Rate |
     |---|---|
-    | Control (Old UI) | 64.6% |
-    | Test (New UI) | 68.0% |
-    | Difference | +3.4% |
+    | Control (Old UI) | 65.59% |
+    | Test (New UI) | 69.29% |
+    | Difference | +3.7% |
     
 
-- The second H₀: Completion Rate with a Cost-Effectiveness Threshold we fail to reject.
+- The second H₀: Completion Rate with a Cost-Effectiveness Threshold we **fail to reject**.
 H₀: The new process design does not achieve the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is less than 5%, meaning the new design is not cost-effective.
 The new UI performs better but only by 3.4%.
 
 
-- The last H₀: Completion Rate according to tenure years we have to reject.
+- The last H₀: Completion Rate according to tenure years we have to **reject**.
 H₀: The completion rate of the new process does not differ significantly from the old process across tenure groups
 Especially under the newer clients the new UI does better with up to 3.9% better in the tenure group 6-10 years. 
 
 
 ## Additional insights
  
- - 31+ year tenure clients perform better with old UI 
- - Biggest drop-off at start (control 14% vs test 9.1%) 
- - Step 1 loses more clients in test group (control 6.2% vs test 7.3%)
- - 33 clients without start event — minor tracking issue 
- - 1,412 clients confirmed without completing all steps 
+- Missing start events are minimal and similarly distributed across the test (0.05%) and control (0.08%) groups. This indicates a minor technical tracking issue that is not related to the UI design and does not impact the validity of the analysis.
+- A subset of clients returns to previous steps before proceeding again, indicating some level of navigation backtracking within the process.
+- Some clients skip intermediate steps entirely. Specifically, 228 clients in the test group and 349 clients in the control group completed the process without going through all steps.
+- Step repetition is relatively high in both groups, with 51.46% in the control group and 55.11% in the test group. This may warrant further investigation, particularly given the higher repetition rate observed in the new UI.
+- Drop off rates per step: 
+    - **Biggest win for new UI:** After Start: 14% vs 9.1% — the new UI is much better at keeping clients engaged initially! 
+    - **Problem area** → After Step 1: the new UI loses slightly more clients here — something about Step 1 needs improvement! 
+    - **Step 3** is the biggest drop-off for BOTH groups → this step needs attention regardless of which UI is used!
+ 
 
 ## Business Recommendations
 
@@ -152,44 +156,62 @@ https://docs.google.com/presentation/d/1MtAjua1jVTg8QEi5DEEQXuwsui0Agx2kUaQ2pm36
 ```
 2nd-project/
 │
-├── data/
+├── Data/
 │   ├── clean/
-│   │   ├── df_final_experiment_clients.csv
-│   │   ├── df_final_web_data.csv
+│   │   ├── control_group_df.csv
+│   │   ├── demo_df_cleaned.csv
 │   │   ├── df_web.csv
-│   │   ├── error_free_df_web.csv
+│   │   ├── error_df.csv
+│   │   ├── error_distribution.csv
 │   │   ├── joined_demo_expi_df.csv
+│   │   ├── no_start.csv
 │   │   └── test_group_df.csv
 │   │
-│   └── raw/
-│       ├── df_final_demo.txt
-│       ├── df_final_experiment_clients.txt
-│       ├── df_final_web_data_pt_1.txt
-│       └── df_final_web_data_pt_2.txt
-│
+│   |── raw/
+│   |   ├── df_final_demo.txt
+│   |   ├── df_final_experiment_clients.txt
+│   |   ├── df_final_web_data_pt_1.txt
+│   |   └── df_final_web_data_pt_2.txt
+│   |
+|   └── tableau/
+│       ├── ab_test_completion_by_age.csv
+│       ├── ab_test_demographics_summary.csv
+│       ├── ab_test_error_summary.csv
+│       ├── ab_test_tableau_ready.csv
+│       ├── ab_test_funnel_summary.csv
+│       └── ab_test_kpi_summary.csv
+│   
 ├── Figures/
-│   ├── call_per_tenure_group.png
-│   ├── calls_by_age.png
-│   ├── client_tenure_yr.png
-│   ├── completion_rates_tenure_group.png
-│   ├── completion_rates_test_vs_control.png
-│   ├── contingency_table_heatmap.png
-│   ├── logons_by_age.png
+│   ├── calls_per_age_group.png
+│   ├── calls_per_tenure_group.png
+│   ├── clients_age.png
+│   ├── client_tenure_years.png
+│   ├── completion_rates_overall.png
+│   ├── completion_rates_per_step.png
+│   ├── drop_off_per_step.png
+│   ├── logons_per_age.png
 │   ├── logons_per_tenure_group.png
-│   └── tenure_distribution_test_vs_control.png
+│   └── test vs control time differences.png
 │
 ├── Notebooks/
 │   ├── alex.ipynb
 │   ├── bruno.ipynb
+│   ├── ofelia_hyp1.ipynb
 │   ├── sarah_tenure.ipynb
-│   └── sarah.ipynb
+│   ├── sarah.ipynb
+│   └── tableau.py
 │
+├── Presentations/
+│   ├── Vanguard.pptx
+│   └── Vanguard_Tableau.twb
+|
 ├── .python-version
 ├── config.yaml
 ├── pyproject.toml
 └── README.md
 ```
 ## Installation instruction
+Please note: all the files are in branch **main**
 
 1. clone the repository:
 ```
