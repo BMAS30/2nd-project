@@ -1,7 +1,9 @@
 input_data:
   file1: "../Data/raw/df_final_demo.txt"
   file2: "../Data/raw/df_final_experiment_clients.txt."
- 
+  file3: "../Data/raw/df_final_web_data_pt_1.txt"
+  file4: "../Data/raw/df_final_web_data_pt_2.txt"
+
   
 
 
@@ -11,3 +13,5 @@ output_data:
   file3: "../Data/clean/control_group_df.csv"
   file4: "../Data/clean/test_group_df.csv"
   file5: "../Data/clean/joined_demo_expi_df.csv"
+  file6: "../Data/clean/df_web.csv"
+  file7: "../Data/clean/error_free_df_web.csv"

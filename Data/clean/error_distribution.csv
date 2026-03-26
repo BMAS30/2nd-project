@@ -1,0 +1,37 @@
+error_type,group,count,pct_of_group
+repeated: start,test,12367,45.87
+repeated: start,control,10110,42.97
+repeated: step 1,test,8433,31.28
+repeated: step 1,control,5794,24.63
+missing confirm,test,8279,30.71
+missing confirm,control,8098,34.42
+went back: step 1 → start,test,7614,28.24
+went back: step 1 → start,control,3558,15.12
+repeated: step 2,test,5036,18.68
+repeated: step 2,control,4660,19.81
+repeated: confirm,test,3824,14.18
+repeated: confirm,control,1091,4.64
+went back: step 2 → step 1,test,3173,11.77
+went back: step 2 → step 1,control,1409,5.99
+repeated: step 3,test,3161,11.72
+repeated: step 3,control,3546,15.07
+went back: step 3 → start,test,2881,10.69
+went back: step 3 → start,control,1902,8.08
+went back: step 3 → step 2,test,2300,8.53
+went back: step 3 → step 2,control,2371,10.08
+went back: step 2 → start,test,2136,7.92
+went back: step 2 → start,control,1344,5.71
+went back: confirm → start,test,663,2.46
+went back: confirm → start,control,1680,7.14
+missing start,test,289,1.07
+missing start,control,135,0.57
+went back: step 3 → step 1,test,236,0.88
+went back: step 3 → step 1,control,835,3.55
+skipped step,test,81,0.3
+skipped step,control,123,0.52
+went back: confirm → step 1,test,48,0.18
+went back: confirm → step 1,control,101,0.43
+went back: confirm → step 3,test,29,0.11
+went back: confirm → step 3,control,130,0.55
+went back: confirm → step 2,test,2,0.01
+went back: confirm → step 2,control,0,0.0
