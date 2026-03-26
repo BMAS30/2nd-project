@@ -1,0 +1,25 @@
+Variation,age_group,gender,total_visits,completed_visits,completion_rate_pct
+control,Under 30,Female,877,483,55.07
+control,Under 30,Male,1100,637,57.91
+control,Under 30,Unknown,2993,1702,56.87
+control,30–44,Female,2429,1407,57.93
+control,30–44,Male,2857,1600,56.0
+control,30–44,Unknown,2907,1640,56.42
+control,45–59,Female,3633,1980,54.5
+control,45–59,Male,3594,2024,56.32
+control,45–59,Unknown,2771,1591,57.42
+control,60+,Female,3500,1663,47.51
+control,60+,Male,3540,1778,50.23
+control,60+,Unknown,2013,993,49.33
+test,Under 30,Female,1004,725,72.21
+test,Under 30,Male,1340,1020,76.12
+test,Under 30,Unknown,3413,2546,74.6
+test,30–44,Female,2930,2025,69.11
+test,30–44,Male,3250,2385,73.38
+test,30–44,Unknown,3321,2361,71.09
+test,45–59,Female,4258,2853,67.0
+test,45–59,Male,4044,2788,68.94
+test,45–59,Unknown,3271,2186,66.83
+test,60+,Female,4003,2585,64.58
+test,60+,Male,4027,2770,68.79
+test,60+,Unknown,2317,1472,63.53

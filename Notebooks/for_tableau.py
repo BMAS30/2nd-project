@@ -20,7 +20,7 @@ op = config["output_data"]
 
 demo = pd.read_csv(base / "clean/demo_df_cleaned.csv")
 exp  = pd.read_csv(base / "clean/df_final_experiment_clients_clean.csv")
-web  = pd.read_csv(base / "clean/error_free_df_web.csv", parse_dates=["date_time"])
+web  = pd.read_csv(base / "clean/df_web.csv", parse_dates=["date_time"])
 
 print(f"  web rows:   {len(web):,}")
 print(f"  exp rows:   {len(exp):,}")
@@ -44,16 +44,30 @@ web["step_order"] = web["process_step"].map(step_order)
 # ─────────────────────────────────────────────
 web = web.sort_values(["visit_id", "date_time"]).reset_index(drop=True)
 
-# time_on_step = seconds until the NEXT step in the same visit
+# ── Only keep forward-moving steps ──────────────────────
+web["prev_step_order"] = web.groupby("visit_id")["step_order"].shift(1).fillna(0)
+web = web[web["step_order"] >= web["prev_step_order"]].copy()
+web = web.drop(columns=["prev_step_order"])
+
+# ── Time on step (time until next step in same visit) ───
 web["time_on_step_seconds"] = (
     web.groupby("visit_id")["date_time"]
-    .diff()                         # diff gives time since previous row
-    .shift(-1)                      # shift back: assign gap to the step that caused it
+    .diff()
+    .shift(-1)
     .dt.total_seconds()
 )
 
-# Cap outliers at 30 minutes (1800s) — anything longer is likely idle/abandoned
-web["time_on_step_seconds"] = web["time_on_step_seconds"].clip(upper=1800)
+# ── Cap per step based on boxplot whiskers ───────────────
+step_caps = {
+    "start":  110,
+    "step_1": 90,
+    "step_2": 240,
+    "step_3": 320,
+}
+for step, cap in step_caps.items():
+    web.loc[web["process_step"] == step, "time_on_step_seconds"] = (
+        web.loc[web["process_step"] == step, "time_on_step_seconds"].clip(upper=cap)
+    )
 
 # ─────────────────────────────────────────────
 # 4. FLAG COMPLETION & DROP-OFF PER VISIT
@@ -134,7 +148,7 @@ cols_to_export = [
 cols_to_export = [c for c in cols_to_export if c in web.columns]
 
 web[cols_to_export].to_csv(base / "clean/ab_test_tableau_ready.csv", index=False)
-print(f"\n✅ Exported: ab_test_tableau_ready.csv ({len(web):,} rows, {len(cols_to_export)} columns)")
+print(f"\nExported: ab_test_tableau_ready.csv ({len(web):,} rows, {len(cols_to_export)} columns)")
 
 # ─────────────────────────────────────────────
 # 11. EXPORT: FUNNEL SUMMARY (one row per group × step)
@@ -156,7 +170,7 @@ funnel = funnel.merge(total_per_group, on="Variation")
 funnel["pct_of_starters"] = (funnel["users"] / funnel["total_users"] * 100).round(2)
 
 funnel.to_csv("ab_test_funnel_summary.csv", index=False)
-print(f"✅ Exported: ab_test_funnel_summary.csv ({len(funnel)} rows)")
+print(f"Exported: ab_test_funnel_summary.csv ({len(funnel)} rows)")
 
 # ─────────────────────────────────────────────
 # 12. EXPORT: COMPLETION RATE BY DEMOGRAPHICS
@@ -174,7 +188,7 @@ demo_summary["completion_rate_pct"] = (
 ).round(2)
 
 demo_summary.to_csv(base / "clean/ab_test_demographics_summary.csv", index=False)
-print(f"✅ Exported: ab_test_demographics_summary.csv ({len(demo_summary)} rows)")
+print(f"Exported: ab_test_demographics_summary.csv ({len(demo_summary)} rows)")
 
 # Completion rate per client (matches notebook methodology)
 completed_clients = (
@@ -207,6 +221,108 @@ completion_by_age["age_group"] = pd.Categorical(
 completion_by_age = completion_by_age.sort_values("age_group")
 print("Exported: ab_test_completion_by_age.csv")
 
+# ─────────────────────────────────────────────
+# EXPORT: Overall KPI summary
+# ─────────────────────────────────────────────
+completed_clients = web[web["process_step"] == "confirm"]["client_id"].unique()
+
+client_level = web.drop_duplicates("client_id")[["client_id", "Variation"]].copy()
+client_level["completed"] = client_level["client_id"].isin(completed_clients).astype(int)
+
+kpi_summary = (
+    client_level.groupby("Variation")["completed"]
+    .mean()
+    .reset_index()
+    .rename(columns={"completed": "completion_rate"})
+)
+
+kpi_summary["completion_rate_pct"] = (kpi_summary["completion_rate"] * 100).round(2)
+
+print("\nKPI Summary:")
+print(kpi_summary)
+
+kpi_summary.to_csv(base / "clean/ab_test_kpi_summary.csv", index=False)
+print("Exported: ab_test_kpi_summary.csv")
+
+# ─────────────────────────────────────────────
+# EXPORT: Error rates for Tableau
+# ─────────────────────────────────────────────
+steps = ['start', 'step_1', 'step_2', 'step_3', 'confirm']
+step_order_map = {s: i for i, s in enumerate(steps)}
+
+def detect_errors(group):
+    group = group.sort_values('date_time')
+    sequence = group['process_step'].tolist()
+    errors = []
+
+    if 'start' not in sequence:
+        errors.append('missing_start')
+    if 'confirm' not in sequence:
+        errors.append('missing_confirm')
+
+    visited = [s for s in steps if s in sequence]
+    for i in range(len(visited) - 1):
+        expected_next = steps[steps.index(visited[i]) + 1] if steps.index(visited[i]) + 1 < len(steps) else None
+        if expected_next and visited[i+1] != expected_next:
+            errors.append('skipped_step')
+
+    for i in range(len(sequence) - 1):
+        curr = sequence[i]
+        nxt = sequence[i+1]
+        if curr in step_order_map and nxt in step_order_map:
+            if step_order_map[nxt] < step_order_map[curr]:
+                errors.append(f'went_back:{curr}_to_{nxt}')
+
+    for step in steps:
+        if sequence.count(step) > 1:
+            errors.append(f'repeated:{step}')
+
+    return errors
+
+# Apply to all clients in experiment
+error_records = []
+for client_id, group in web.groupby('client_id'):
+    errors = detect_errors(group)
+    variation = group['Variation'].iloc[0]
+    for e in errors:
+        error_records.append({
+            'client_id': client_id,
+            'error': e,
+            'Variation': variation
+        })
+
+error_df = pd.DataFrame(error_records)
+
+# Simplify error categories for Tableau
+error_df['error_category'] = error_df['error'].apply(lambda x:
+    'Went Back' if x.startswith('went_back') else
+    'Repeated Step' if x.startswith('repeated') else
+    'Skipped Step' if x == 'skipped_step' else
+    'Missing Start' if x == 'missing_start' else
+    'Never Completed' if x == 'missing_confirm' else x
+)
+
+# Error rate per variation and category
+total_clients = web.groupby('Variation')['client_id'].nunique().reset_index()
+total_clients.columns = ['Variation', 'total_clients']
+
+error_summary = (
+    error_df.groupby(['Variation', 'error_category'])['client_id']
+    .nunique()
+    .reset_index()
+    .rename(columns={'client_id': 'clients_with_error'})
+)
+
+error_summary = error_summary.merge(total_clients, on='Variation')
+error_summary['error_rate'] = (
+    error_summary['clients_with_error'] / error_summary['total_clients']
+).round(4)
+
+print("\nError Summary:")
+print(error_summary.to_string())
+
+error_summary.to_csv(base / "clean/ab_test_error_summary.csv", index=False)
+print("Exported: ab_test_error_summary.csv")
 # ─────────────────────────────────────────────
 # 13. QUICK SANITY CHECK PRINTOUT
 # ─────────────────────────────────────────────

@@ -1,0 +1,11 @@
+Variation,error_category,clients_with_error,total_clients,error_rate
+control,Missing Start,298,23524,0.0127
+control,Never Completed,8096,23524,0.3442
+control,Repeated Step,12105,23524,0.5146
+control,Skipped Step,123,23524,0.0052
+control,Went Back,5657,23524,0.2405
+test,Missing Start,452,26961,0.0168
+test,Never Completed,8279,26961,0.3071
+test,Repeated Step,14859,26961,0.5511
+test,Skipped Step,83,26961,0.0031
+test,Went Back,6068,26961,0.2251
