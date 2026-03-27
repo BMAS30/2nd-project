@@ -102,7 +102,8 @@ the Control group.
     |---|---|
     | Control (Old UI) | 65.59% |
     | Test (New UI) | 69.29% |
-    | Difference | +3.7% |
+    | Difference | +3.7pp |
+    | Relative uplift | 5.65%|
     
 
 - The second H₀: Completion Rate with a Cost-Effectiveness Threshold we **reject**.
