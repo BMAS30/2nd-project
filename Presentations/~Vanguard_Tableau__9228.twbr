@@ -2462,7 +2462,7 @@
       <simple-id uuid='{7F737528-F589-4031-8334-BDA431F475ED}' />
     </dashboard>
   </dashboards>
-  <windows pres-mode='true' source-height='114'>
+  <windows source-height='114'>
     <window class='worksheet' name='Completed'>
       <cards>
         <edge name='left'>
@@ -2601,7 +2601,7 @@
       </cards>
       <simple-id uuid='{B013C432-F3D5-427E-84E4-54BF28CAE7BE}' />
     </window>
-    <window class='worksheet' maximized='true' name='KPI Lift'>
+    <window class='worksheet' name='KPI Lift'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2624,7 +2624,7 @@
       </cards>
       <simple-id uuid='{59C56BC2-E391-4D85-8E54-0E1E91ED2C6D}' />
     </window>
-    <window class='dashboard' name='Vanguard A/B Test Results'>
+    <window class='dashboard' maximized='true' name='Vanguard A/B Test Results'>
       <viewpoints>
         <viewpoint name='Completed'>
           <zoom type='entire-view' />
@@ -2639,7 +2639,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='-1' />
+      <active id='8' />
       <simple-id uuid='{D6138E50-3007-437A-B523-87D2E7374F61}' />
     </window>
   </windows>
