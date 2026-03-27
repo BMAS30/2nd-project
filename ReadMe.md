@@ -198,9 +198,14 @@ https://docs.google.com/presentation/d/1MtAjua1jVTg8QEi5DEEQXuwsui0Agx2kUaQ2pm36
 │   └── completion_rates_per_step.png
 │
 ├── Notebooks/
+│   ├── alex_modular_ab_analysis.py
 │   ├── alex.ipynb
-│   ├── bruno.ipynb
+│   ├── Client analysis_experiment evaluation.ipynb
+│   ├── client_analysis_experiment_evaluation.py
+│   ├── ofelia_hyp1_modular.py
 │   ├── ofelia_hyp1.ipynb
+│   ├── sarah_modular.py
+│   ├── sarah_tenure_modular.py
 │   ├── sarah_tenure.ipynb
 │   ├── sarah.ipynb
 │   └── tableau.py
