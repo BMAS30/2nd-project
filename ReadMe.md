@@ -52,6 +52,8 @@ From df_final_web_data_pt_1.txt & df_final_webdata_pt_2.txt
 ## About Vanguard
 Vanguard is one of the world's largest investment management companies, founded in 1975 and serving over 50 million clients worldwide. As part of their ongoing commitment to improving the client experience, Vanguard conducted an A/B test to evaluate whether a new user interface design leads to higher process completion rates among their clients. 
 
+The client bases primary consist of established, midle to older aged clients
+
 ## Business question
 Does the new Vanguard UI design drive higher process completion rates, and if so, does the improvement justify the investment?
 
@@ -86,7 +88,10 @@ To compare completion rates between the test and control groups, a Chi-square te
 
 ## Results
 
-The results show:
+**The results show:**
+
+The duration of the experiment lasted long enough to get a proper overview about the results but: The experiment groups are partially imbalanced, particularly in user behavior, which may bias the results.
+ 
 - We have to **reject** the first H₀: Completion Rate.
 H₀: The new design does not increase the completion rate compared to the old design. 
 The completion rate in the Test group is less than or equal to the completion rate in 
@@ -100,9 +105,9 @@ the Control group.
     | Difference | +3.7% |
     
 
-- The second H₀: Completion Rate with a Cost-Effectiveness Threshold we **fail to reject**.
+- The second H₀: Completion Rate with a Cost-Effectiveness Threshold we **reject**.
 H₀: The new process design does not achieve the minimum required increase in completion rate. The difference in completion rate between the test group and the control group is less than 5%, meaning the new design is not cost-effective.
-The new UI performs better but only by 3.4%.
+The new UI performs better with a relative lift of **5.65%**
 
 
 - The last H₀: Completion Rate according to tenure years we have to **reject**.
@@ -124,14 +129,14 @@ Especially under the newer clients the new UI does better with up to 3.9% better
 
 ## Business Recommendations
 
-The new UI shows promise but does not yet meet the 5% cost-effectiveness threshold (observed improvement: 3.4%). We recommend against full implementation at this stage.
+The new UI shows promise and already meets the 5% cost-effectiveness threshold (observed improvement: 5.65% relative lift). We recommend full implementation at this stage.
 
-Key actions before re-evaluation:
+Key actions to improve the new UI:
 • Investigate and reduce process drop-offs
 • Resolve process integrity errors (clients confirming without completing all steps)
 • Develop a tailored approach for long-tenure clients (31+ years) who perform better under the old process
 
-We are confident that addressing these issues could push completion rates above the 5% threshold, making the new UI a worthwhile investment.
+We are confident that addressing these issues will push completion rates even more.
 
 
 ## Tech Stack
@@ -184,14 +189,12 @@ https://docs.google.com/presentation/d/1MtAjua1jVTg8QEi5DEEQXuwsui0Agx2kUaQ2pm36
 ├── Figures/
 │   ├── calls_per_age_group.png
 │   ├── calls_per_tenure_group.png
-│   ├── clients_age.png
+│   ├── client_age.png
+│   ├── client_drop_off_per_step.png
 │   ├── client_tenure_years.png
+│   ├── completion_rate_by_tenure_group.png
 │   ├── completion_rates_overall.png
-│   ├── completion_rates_per_step.png
-│   ├── drop_off_per_step.png
-│   ├── logons_per_age.png
-│   ├── logons_per_tenure_group.png
-│   └── test vs control time differences.png
+│   └── completion_rates_per_step.png
 │
 ├── Notebooks/
 │   ├── alex.ipynb
