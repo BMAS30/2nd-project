@@ -80,8 +80,6 @@ The completion rate in the Test group is higher than the completion rate in the 
 
 The dataset was relatively clean and therefore did not present any significant obstacles. We removed rows that contained only null values, with the exception of the client_id, and merged the datasets df_final_web_data_pt_1 and df_final_web_data_pt_2.
 
-The primary challenges we encountered were related to alignment, communication, and mutual understanding within the team. Although communication was ongoing, some misunderstandings arose, and different approaches were taken to address errors encountered during the process. While this was not a major issue, it was ultimately insightful to observe that the overall error rate was relatively low. However, it did require us to realign at a later stage of the project.
-
 ## Methodology
 
 To compare completion rates between the test and control groups, a Chi-square test was used as completion is a categorical variable (completed/not completed). To verify that the groups were balanced in terms of client tenure, an independent samples T-test was applied, preceded by Levene's test for equality of variances and a normality check. A significance level of α = 0.05 was used throughout the analysis.
